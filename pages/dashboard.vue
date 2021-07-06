@@ -3,13 +3,15 @@
     <div>
       <!-- <Logo /> -->
       <h1 class="title">Bienvenido, {{dashboard.user.name}}</h1>
+      <!-- {{dashboard.classes}} -->
       <hr>
       <h2>Mis cursos</h2>
-      <b-card class="mt-4" v-for="(e,i) in dashboard.classes" :title="e.class" :key="i">
-        <h5>{{e.subject}}</h5>
+      <b-card class="mt-4" v-for="(e,i) in dashboard.classes":key="i">
+        <h2 class="mt-4">{{e.subject}}</h2>
+        <h5>{{e.class}}</h5>
+        <a :href="`class/${e.idClass}`">Editar Curso / Agregar Alumnos</a>
         <b-button-group class="w-100 mt-4">
-          <b-button variant="primary" :href="`class/${e.id}`">Ver Preguntas</b-button>
-          <b-button>Editar</b-button>
+          <b-button variant="primary" :href="`book/${e.id}`">Ver Preguntas</b-button>
         </b-button-group>
       </b-card>
     </div>
