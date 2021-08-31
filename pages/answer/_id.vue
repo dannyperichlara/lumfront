@@ -4,13 +4,13 @@
       <b-spinner v-if="answering"></b-spinner>
     </div>
     <div v-if="pending">
-      {{ question }}
+      <!-- {{ question }} -->
       <!-- <Logo /> -->
       <!-- <h1 class="title">Bienvenido, Danny</h1> -->
       <hr>
       <div class="small">{{question.book.name}} / {{question.book.area}}</div>
-      <h2>{{question.text}}</h2>
-      <img :src="question.image" style="width: 400px; max-width: 100%">
+      <h4>{{question.text}}</h4>
+      <img :src="question.image" style="width: 320px; max-width: 100%">
       <hr>
       <div v-for="(e,i) in question.possible_answers" :key="i">
         <b-button block v-on:click="answer(i)" class="mb-4">
@@ -26,8 +26,11 @@
       ok-title="Confirmar"
       @ok = "sendAnswer()"
     >
-      <p class="my-4">{{possible_answer.text}}</p>
-      <p class="my-4"><img :src="possible_answer.image" style="width:120px; max-width: 100%"></p>
+      <p class="lead my-4">{{question.text}}</p>
+      <hr>
+      <label class="small">Mi respuesta:</label>
+      <p class="h4">{{possible_answer.text}}</p>
+      <p class=""><img :src="possible_answer.image" style="width:120px; max-width: 100%"></p>
     </b-modal>
   </div>
 </template>

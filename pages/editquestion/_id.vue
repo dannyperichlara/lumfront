@@ -327,7 +327,8 @@ export default {
     },
 
     acceptIndicatorsChange() {
-      return confirm('Si cambias los indicadores, deberás asociarlos nuevamente a cada posible respuesta. ¿Estás seguro que deseas realizar esta acción?')
+      return true
+      // return confirm('Si cambias los indicadores, deberás asociarlos nuevamente a cada posible respuesta. ¿Estás seguro que deseas realizar esta acción?')
     },
 
     cleanIndicators() {

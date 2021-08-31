@@ -3,27 +3,51 @@
     <div>
       <Logo />
       <h1 class="title">
-        LUM
+        SI ERES PROFESOR
       </h1>
       <hr>
       <form>
-        <b-label>Email</b-label>
-        <input v-model="username">
+        <label>Email</label>
+        <input v-model="username" id="username" name="username">
         <br>
-        <b-label>Password</b-label>
+        <label>Password</label>
         <input v-model="password" type="password">
         <br>
         <b-button v-on:click="login()">ENTRAR</b-button>
+      </form>
+    </div>
+    <hr>
+    <div>
+      <!-- <Logo /> -->
+      <h1 class="title">
+        SI ERES ALUMNO
+      </h1>
+      <hr>
+      <form>
+        <label>Email</label>
+        <input v-model="student.rut" id="rut" name="rut">
+        <br>
+        <label>Password</label>
+        <input v-model="student.password" type="password">
+        <br>
+        <b-button v-on:click="loginStudent()">ENTRAR</b-button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import config from '~/config.js'
 export default {
   data() {
     return {
-      endpoint: 'http://45.58.62.235:4000/v1/'
+      username: null,
+      password: null,
+      endpoint: config.endpoint,
+      student: {
+        rut: null,
+        password: null
+      }
     }
   },
 
@@ -32,6 +56,35 @@ export default {
   },
 
   methods: {
+    loginStudent() {
+      let data = {
+        rut: this.student.rut,
+        password: this.student.password
+      }
+
+      console.log('Logging in')
+      fetch(this.endpoint + 'loginStudent', {
+        method: 'POST', // or 'PUT'
+        mode: 'cors',
+        body: JSON.stringify({
+          rut: data.rut,
+          password: data.password,
+        }), // data can be `string` or {object}!
+        headers:{
+          'Content-Type': 'application/json'
+        },
+
+      }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+          console.log(response)
+          if (response.internalCode === 200) {
+            localStorage.lumkey = response.payload.token
+            this.$router.push('estudiante')
+          }
+        });
+    },
+
     login() {
       console.log('Logging in')
       fetch(this.endpoint + 'login', {
@@ -59,7 +112,7 @@ export default {
 </script>
 
 <style>
-.container {
+/* .container {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
@@ -96,5 +149,5 @@ export default {
 
 .links {
   padding-top: 15px;
-}
+} */
 </style>
